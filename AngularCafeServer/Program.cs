@@ -6,6 +6,20 @@ var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 
+
+builder.Services.AddCors(options =>
+{
+    options.AddDefaultPolicy(config =>
+    {
+        config.WithOrigins("http://localhost:4200")
+              .AllowAnyHeader()
+              .AllowAnyMethod()
+              .AllowCredentials();
+    });
+
+});
+
+
 builder.Services.AddControllers().AddJsonOptions(config =>
 {
 
@@ -34,6 +48,8 @@ if (app.Environment.IsDevelopment())
     app.UseSwagger();
     app.UseSwaggerUI();
 }
+
+app.UseCors();
 
 app.UseHttpsRedirection();
 
